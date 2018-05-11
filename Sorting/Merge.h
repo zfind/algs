@@ -1,3 +1,7 @@
+#ifndef MERGE_H
+#define MERGE_H
+
+
 #include <iostream>
 #include <cassert>
 #include <algorithm>
@@ -7,8 +11,11 @@ class Merge : public SortingAlgorithm {
 public:
     template <typename Item>
     static void sort(Item a[], int N) {
+        resetCount();
+
         Item aux[N];
         sort(a, aux, 0, N - 1);
+
         assert(isSorted(a, N));
     }
 
@@ -34,28 +41,16 @@ private:
 
         int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; k++) {
-            if      (i > mid)               a[k] = aux[j++];
-            else if (j > hi)                a[k] = aux[i++];
-            else if (less(aux[j], aux[i]))  a[k] = aux[j++];
-            else                            a[k] = aux[i++];
+            if      (i > mid)               exch(a[k], aux[j++]);
+            else if (j > hi)                exch(a[k], aux[i++]);
+            else if (less(aux[j], aux[i]))  exch(a[k], aux[j++]);
+            else                            exch(a[k], aux[i++]);
         }
 
         assert(isSorted(a, lo, hi));
     }
+
 };
 
-int main() {
-    int N;
-    std::cin >> N;
 
-    int a[N];
-    for (int i = 0; i < N; i++) {
-        std::cin >> a[i];
-    }
-
-    Merge::sort(a, N);
-
-    // printArray(a, N);
-
-    return 0;
-}
+#endif

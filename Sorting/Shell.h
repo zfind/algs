@@ -1,3 +1,7 @@
+#ifndef SHELL_H
+#define SHELL_H
+
+
 #include <iostream>
 #include <cassert>
 #include "SortCommon.h"
@@ -7,6 +11,8 @@ class Shell : public SortingAlgorithm {
 public:
     template<typename Item>
     static void sort(Item a[], int N) {
+        resetCount();
+
         int h = 1;
         while (h < N/3) h = 3*h + 1;
 
@@ -24,18 +30,4 @@ public:
 };
 
 
-int main() {
-    int N;
-    std::cin >> N;
-
-    int a[N];
-    for (int i=0; i<N; i++) {
-        std::cin >> a[i];
-    }
-
-    Shell::sort(a, N);
-
-    //printArray(a, N);
-
-    return 0;
-}
+#endif

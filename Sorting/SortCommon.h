@@ -1,22 +1,60 @@
+#ifndef SORTCOMMON_H
+#define SORTCOMMON_H
+
+
 #include <iostream>
 
 
 class SortingAlgorithm {
 private:
-    SortingAlgorithm();
+
+    static int compareCount;
+    static int exchangeCount;
+
+    SortingAlgorithm() = delete;
 
 public:
+
     template<typename Item>
     static void sort(Item a[], int N);
 
+    static int getCompareCount() {
+        return compareCount;
+    }
+
+    static int getExchangeCount() {
+        return exchangeCount;
+    }
+
+    static void resetCount() {
+        compareCount = 0;
+        exchangeCount = 0;
+    }
+
     template<typename Item>
     static int less(Item& a, Item& b) {
+        #ifdef COUNT_STATS
+        compareCount++;
+        #endif
         return a < b;
     }
 
     template<typename Item>
     static void exch(Item a[], int i, int j) {
+        #ifdef COUNT_STATS
+        exchangeCount++;
+        #endif
         std::swap(a[i], a[j]);
+    }
+
+    template<typename Item>
+    static void exch(Item& a, Item& b) {
+        #ifdef COUNT_STATS
+        exchangeCount++;
+        #endif
+        Item& tmp = a;
+        a = b;
+        b = tmp;
     }
 
     template<typename Item>
@@ -35,6 +73,9 @@ public:
     }
 };
 
+int SortingAlgorithm::compareCount = 0;
+int SortingAlgorithm::exchangeCount = 0;
+
 
 template<typename Item>
 static void printArray(Item a[], int N) {
@@ -42,3 +83,6 @@ static void printArray(Item a[], int N) {
         std::cout << a[i] << std::endl;
     }
 }
+
+
+#endif

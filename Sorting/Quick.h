@@ -1,3 +1,7 @@
+#ifndef QUICK_H
+#define QUICK_H
+
+
 #include <iostream>
 #include <cassert>
 #include <algorithm>
@@ -8,8 +12,11 @@ class Quick : public SortingAlgorithm {
 public:
     template <typename Item>
     static void sort(Item a[], int N) {
+        resetCount();
+
         std::random_shuffle(a, a + N);
         sort(a, 0, N - 1);
+
         assert(isSorted(a, N));
     }
 
@@ -49,20 +56,8 @@ private:
 
         return j;
     }
+
 };
 
-int main() {
-    int N;
-    std::cin >> N;
 
-    int a[N];
-    for (int i = 0; i < N; i++) {
-        std::cin >> a[i];
-    }
-
-    Quick::sort(a, N);
-
-    // printArray(a, N);
-
-    return 0;
-}
+#endif
