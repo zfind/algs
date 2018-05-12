@@ -6,12 +6,6 @@
 
 
 class SortingAlgorithm {
-protected:
-    static int compareCount;
-    static int exchangeCount;
-
-    SortingAlgorithm() = delete;
-
 public:
 
     template<typename Item>
@@ -24,6 +18,13 @@ public:
     static int getExchangeCount() {
         return exchangeCount;
     }
+
+protected:
+
+    static int compareCount;
+    static int exchangeCount;
+
+    SortingAlgorithm() = delete;
 
     static void resetCount() {
         compareCount = 0;
@@ -70,6 +71,7 @@ public:
         }
         return true;
     }
+
 };
 
 int SortingAlgorithm::compareCount = 0;
