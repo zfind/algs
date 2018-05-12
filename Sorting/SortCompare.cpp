@@ -7,6 +7,7 @@
 #include "Shell.h"
 #include "Merge.h"
 #include "Quick.h"
+#include "Heap.h"
 using namespace std;
 
 
@@ -51,6 +52,12 @@ int main() {
     Quick::sort(a, N);
     cout << "Quicksort compares:\t" << Merge::getCompareCount() << endl;
     cout << "Quicksort exchanges:\t" << Merge::getExchangeCount() << endl;
+
+
+    memcpy(a, a_bak, N*sizeof(int));
+    Heap::sort(a, N);
+    cout << "Heapsort compares:\t" << Heap::getCompareCount() << endl;
+    cout << "Heapsort exchanges:\t" << Heap::getExchangeCount() << endl;
 
 
     return 0;

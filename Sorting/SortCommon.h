@@ -6,8 +6,7 @@
 
 
 class SortingAlgorithm {
-private:
-
+protected:
     static int compareCount;
     static int exchangeCount;
 
