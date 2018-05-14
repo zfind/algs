@@ -1,5 +1,5 @@
-#ifndef BINARYSEARCHDICT_H
-#define BINARYSEARCHDICT_H
+#ifndef BINARYSEARCHARRAYDICT_H
+#define BINARYSEARCHARRAYDICT_H
 
 
 #include <iostream>
@@ -7,7 +7,7 @@
 
 
 template<typename Key, typename Value>
-class BinarySearchDict {
+class BinarySearchArrayDict {
 private:
 
     Key* keys;
@@ -16,12 +16,12 @@ private:
 
 public:
 
-    BinarySearchDict(int capacity) : N(0) {
+    BinarySearchArrayDict(int capacity) : N(0) {
         keys = new Key[capacity];
         vals = new Value[capacity];
     }
 
-    ~BinarySearchDict() {
+    ~BinarySearchArrayDict() {
         delete[] keys;
         delete[] vals;
     }
@@ -34,7 +34,7 @@ public:
         return N == 0;
     }
 
-    Value get(Key key) {
+    Value get(Key& key) {
         if (isEmpty()) return nullptr;
         int idx = rank(key);
         if (idx < N && keys[idx] == key) {
@@ -44,7 +44,7 @@ public:
         }
     }
 
-    void put(Key key, Value val) {
+    void put(Key& key, Value& val) {
         int idx = rank(key);
         if (idx < N && keys[idx] == key) {
             vals[idx] = val;
@@ -59,11 +59,11 @@ public:
         N++;
     }
 
-    int rank(Key key) {
+    int rank(Key& key) {
         return rank(key, 0, N-1);
     }
 
-    int rank(Key key, int lo, int hi) {
+    int rank(Key& key, int lo, int hi) {
         if (hi < lo) return lo;
         int mid = lo + (hi - lo) / 2;
         int cmp = key < keys[mid];
