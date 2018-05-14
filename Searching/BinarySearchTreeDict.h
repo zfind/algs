@@ -17,7 +17,7 @@ private:
         Node* left;
         Node* right;
 
-        Node(Key& key, Value& val, int N) :
+        Node(const Key& key, const Value& val, int N) :
             key(key), val(val), N(N),
             left(nullptr), right(nullptr) { }
     };
@@ -36,11 +36,11 @@ public:
         return size() == 0;
     }
 
-    Value get(Key& key) {
+    Value get(const Key& key) {
         return get(root, key);
     }
 
-    void put(Key& key, Value& val) {
+    void put(const Key& key, const Value& val) {
         root = put(root, key, val);
     }
 
@@ -57,7 +57,7 @@ private:
             return x->N;
     }
 
-    Value get(Node* x, Key& key) {
+    Value get(Node* x, const Key& key) {
         if (x == nullptr) return nullptr;
 
         if (key < x->key)
@@ -68,7 +68,7 @@ private:
             return x->val;
     }
 
-    Node* put(Node* x, Key& key, Value& val) {
+    Node* put(Node* x, const Key& key, const Value& val) {
         if (x == nullptr)
             return new Node{key, val, 1};
 

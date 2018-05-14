@@ -34,7 +34,7 @@ public:
         return N == 0;
     }
 
-    Value get(Key& key) {
+    Value get(const Key& key) {
         if (isEmpty()) return nullptr;
         int idx = rank(key);
         if (idx < N && keys[idx] == key) {
@@ -44,7 +44,7 @@ public:
         }
     }
 
-    void put(Key& key, Value& val) {
+    void put(const Key& key, const Value& val) {
         int idx = rank(key);
         if (idx < N && keys[idx] == key) {
             vals[idx] = val;
@@ -59,11 +59,11 @@ public:
         N++;
     }
 
-    int rank(Key& key) {
+    int rank(const Key& key) {
         return rank(key, 0, N-1);
     }
 
-    int rank(Key& key, int lo, int hi) {
+    int rank(const Key& key, int lo, int hi) {
         if (hi < lo) return lo;
         int mid = lo + (hi - lo) / 2;
         int cmp = key < keys[mid];
