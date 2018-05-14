@@ -42,7 +42,7 @@ public:
         return N;
     }
 
-    void insert(Item v) {
+    void insert(const Item& v) {
         pq[++N] = v;
         fixUp(N);
         assert(isHeap());
