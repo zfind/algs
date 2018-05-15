@@ -19,7 +19,7 @@ int main() {
     dict.print();
 
     char floorOfQ;
-    if (dict.floor('Q', floorOfQ)) {        
+    if (dict.floor('Q', floorOfQ)) {
         cout << "floor of 'Q':\t" << floorOfQ << endl;
     }
 
@@ -30,6 +30,14 @@ int main() {
 
     int rankOfR = dict.rank('R');
     cout << "rank R:\t" << rankOfR << endl;
+
+    dict.removeMin();
+
+    dict.remove('P');
+    dict.remove('Q');
+    dict.remove('R');
+    dict.print();
+
 
     return 0;
 }

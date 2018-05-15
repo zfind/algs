@@ -72,6 +72,15 @@ public:
         return rank(root, key);
     }
 
+    void removeMin() {
+        if (root == nullptr) return;
+        root = removeMin(root);
+    }
+
+    void remove(const Key& key) {
+        root = remove(root, key);
+    }
+
 private:
 
     int size(Node* x) {
@@ -117,8 +126,10 @@ private:
     }
 
     Node* min(Node* x) {
-        if (x->left == nullptr) return nullptr;
-        return min(x->left);
+        if (x->left == nullptr)
+            return x;
+        else
+            return min(x->left);
     }
 
     Node* floor(Node* x, const Key& key) {
@@ -137,11 +148,11 @@ private:
     Node* select(Node* x, int k) {
         if (x == nullptr) return nullptr;
         int t = size(x->left);
-        if (t > k) 
+        if (t > k)
             return select(x->left, k);
-        else if (t < k) 
+        else if (t < k)
             return select(x->right, k-t-1);
-        else 
+        else
             return x;
     }
 
@@ -153,6 +164,31 @@ private:
             return size(x->left) + 1 + rank(x->right, key);
         else
             return size(x->left);
+    }
+
+    Node* removeMin(Node* x) {
+        if (x->left == nullptr) return x->right;
+        x->left = removeMin(x->left);
+        x->N = size(x->left) + 1 + size(x->right);
+        return x;
+    }
+
+    Node* remove(Node* x, const Key& key) {
+        if (x == nullptr) return nullptr;
+        if (key < x->key)
+            x->left = remove(x->left, key);
+        else if (key > x->key)
+            x->right = remove(x->right, key);
+        else {
+            if (x->right == nullptr) return x->left;
+            if (x->left == nullptr) return x->right;
+            Node* t = x;
+            x = min(t->right);
+            x->right = removeMin(t->right);
+            x->left = t->left;
+        }
+        x->N = size(x->left) + 1 + size(x->right);
+        return x;
     }
 
 };
