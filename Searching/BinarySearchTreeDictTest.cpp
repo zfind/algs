@@ -18,5 +18,18 @@ int main() {
 
     dict.print();
 
+    char floorOfQ;
+    if (dict.floor('Q', floorOfQ)) {        
+        cout << "floor of 'Q':\t" << floorOfQ << endl;
+    }
+
+    char selectIdx7;
+    if (dict.select(7, selectIdx7)) {
+        cout << "idx 7:\t" << selectIdx7 << endl;
+    }
+
+    int rankOfR = dict.rank('R');
+    cout << "rank R:\t" << rankOfR << endl;
+
     return 0;
 }

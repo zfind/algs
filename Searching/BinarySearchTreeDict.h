@@ -48,6 +48,30 @@ public:
         print(root);
     }
 
+    Key min() {
+        if (root == nullptr) return nullptr;
+        return min(root)->key;
+    }
+
+    bool floor(const Key& key, Key& result) {
+        Node* x = floor(root, key);
+        if (x == nullptr) return false;
+        result = x->key;
+        return true;
+    }
+
+    bool select(int k, Key& result) {
+        Node* selected = select(root, k);
+        if (selected == nullptr)
+            return false;
+        result = selected->key;
+        return true;
+    }
+
+    int rank(const Key& key) {
+        return rank(root, key);
+    }
+
 private:
 
     int size(Node* x) {
@@ -90,6 +114,45 @@ private:
         print(x->left);
         std::cout << "< " << x->key << " : " << x->val << " >" << std::endl;
         print(x->right);
+    }
+
+    Node* min(Node* x) {
+        if (x->left == nullptr) return nullptr;
+        return min(x->left);
+    }
+
+    Node* floor(Node* x, const Key& key) {
+        if (x == nullptr) return nullptr;
+        if (key == x->key)
+            return x;
+        else if (key < x->key)
+            return floor(x->left, key);
+        Node* t = floor(x->right, key);
+        if (t != nullptr)
+            return t;
+        else
+            return x;
+    }
+
+    Node* select(Node* x, int k) {
+        if (x == nullptr) return nullptr;
+        int t = size(x->left);
+        if (t > k) 
+            return select(x->left, k);
+        else if (t < k) 
+            return select(x->right, k-t-1);
+        else 
+            return x;
+    }
+
+    int rank(Node* x, const Key& key) {
+        if (x == nullptr) return 0;
+        if (key < x->key)
+            return rank(x->left, key);
+        else if (key > x->key)
+            return size(x->left) + 1 + rank(x->right, key);
+        else
+            return size(x->left);
     }
 
 };
