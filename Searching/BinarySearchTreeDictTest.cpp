@@ -18,6 +18,8 @@ int main() {
 
     dict.print();
 
+    cout << "size:\t" << dict.size() << endl;
+
     char floorOfQ;
     if (dict.floor('Q', floorOfQ)) {
         cout << "floor of 'Q':\t" << floorOfQ << endl;
